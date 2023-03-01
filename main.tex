@@ -87,9 +87,33 @@ AwkwardForth is an internal DSL within Awkward Array for accelerating sequential
 \end{center}
 \end{frame}
 
-\begin{frame}{asdf}
-
-
+\begin{frame}{Uproot-Awkward problem (for more-complex-than-jagged-arrays)}
+\vspace{0.25 cm}
+\only<1>{\includegraphics[width=\linewidth]{PLOTS/awkward-uproot-interaction-1.pdf}}\only<2>{\includegraphics[width=\linewidth]{PLOTS/awkward-uproot-interaction-2.pdf}}\only<3>{\includegraphics[width=\linewidth]{PLOTS/awkward-uproot-interaction-3.pdf}}
 \end{frame}
+
+\begin{frame}{We need a deserialization language; why Forth?}
+\vspace{0.5 cm}
+Forth was promoted in the early 1980's as an alternative to complex languages. It was the only language capable of running fast (compile-like speeds) within memory constraints of the first Macintosh.
+
+\vspace{0.5 cm}
+\begin{columns}
+\column{0.5\linewidth}
+\centering
+\includegraphics[height=5 cm]{PLOTS/elizabeth-rather-the-computer-chronicles.png}
+
+\column{0.5\linewidth}
+\centering
+\includegraphics[height=5 cm]{PLOTS/macintosh-forth-code.jpg}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What Forth looks like}
+\includegraphics[width=0.9\linewidth]{PLOTS/forth-example.png}
+
+\vspace{0.5 cm}
+Almost no syntax; each whitespace-separated word performs an action on a stack of integers. This stack is the only data. Apart from the lack of jumps and the ability to define new words, it's essentially an assembler for a virtual stack-based machine.
+\end{frame}
+
 
 \end{document}
