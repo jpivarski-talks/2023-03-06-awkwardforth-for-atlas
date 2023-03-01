@@ -33,8 +33,8 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \title[2023-03-06-awkwardforth-for-atlas]{All about AwkwardForth}
-\author{Jim Pivarski}
-\institute{Princeton University -- IRIS-HEP}
+\author{Jim Pivarski, Aryan Roy}
+\institute{Princeton University, Manipal Institute of Technology}
 \date{March 6, 2023}
 
 \usetikzlibrary{shapes.callouts}
@@ -160,7 +160,7 @@ new paper here
 
 \begin{frame}{Fixing Uproot's problem with non-columnar deserialization}
 \vspace{0.25 cm}
-\textcolor{darkorange}{\bf \centering This is the {\it predicted} performance (2 years ago).}
+\textcolor{darkorange}{\bf \centering This is the {\it predicted} performance (2 years ago, in proof-of-concept demo).}
 
 \mbox{ } \hfill \includegraphics[width=0.9\linewidth]{PLOTS/AwkwardForth-performance-ROOT.pdf} \hfill \mbox{ }
 
@@ -171,12 +171,72 @@ Vector-of-vector-of-float and above are non-columnar.
 
 \begin{frame}{Fixing Uproot's problem with non-columnar deserialization}
 \vspace{0.25 cm}
-\textcolor{darkorange}{\bf \centering This is the {\it actual} performance (last summer).}
+\textcolor{darkorange}{\bf \centering This is the {\it actual} performance (last summer, in Uproot itself).}
 
 \mbox{ } \hfill \includegraphics[width=0.9\linewidth]{PLOTS/awkwardforth-in-uproot-performance.pdf} \hfill \mbox{ }
 \end{frame}
 
+\begin{frame}{Scaling: AwkwardForth releases the Python GIL}
+\vspace{0.25 cm}
+\textcolor{darkorange}{\bf \centering This is the {\it predicted} performance (2 years ago, in proof-of-concept demo).}
 
+\begin{columns}
+\column{0.5\linewidth}
+\includegraphics[width=\linewidth]{PLOTS/Python-scaling.pdf}
+
+\column{0.5\linewidth}
+\includegraphics[width=\linewidth]{PLOTS/AwkwardForth-scaling.pdf}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Scaling: AwkwardForth releases the Python GIL}
+\vspace{0.5 cm}
+\textcolor{darkorange}{\bf \centering This is the {\it actual} performance (last summer, in Uproot itself).}
+
+\vspace{-0.25 cm}
+\mbox{\hspace{-1 cm}} \includegraphics[width=0.7\linewidth]{PLOTS/awkwardforth-in-uproot-jagged3-scaling.pdf}
+
+\vspace{-4 cm}
+\hfill \includegraphics[width=0.7\linewidth]{PLOTS/awkwardforth-in-uproot-jagged3-scaling-reasons.pdf} \mbox{\hspace{-1.5 cm}}
+\end{frame}
+
+\begin{frame}[fragile]{What if we compile it anyway?}
+\vspace{0.5 cm}
+Some users have Numba (LLVM) installed.
+
+\vspace{0.25 cm}
+What if we convert AwkwardForth $\to$ Numba and let Numba compile it?
+
+\vspace{0.5 cm}
+Proof-of-concept implementation, given this test problem:
+
+\vspace{0.25 cm}
+Compute: $(x + 1) * (x - 2) + 3$
+
+for $N$ iterations (i.e.\ no data flow).
+
+\vspace{0.25 cm}
+\fbox{\mintinline{forth}{dup 1 + swap 2 - * 3 +}}
+
+\vspace{0.25 cm}
+\scriptsize
+\begin{minted}{ca65}
+lea     eax, [rdi+1]
+sub     edi, 2
+imul    eax, edi
+add     eax, 3
+\end{minted}
+
+\normalsize
+\vspace{0.5 cm}
+$\sim$1~second to compile, then 10$\times$ faster,
+
+but only for arithmetically intensive code.
+
+\vspace{-5 cm}
+\hfill \includegraphics[width=0.6\linewidth]{PLOTS/new_compiler.pdf} \mbox{\hspace{-1 cm}}
+
+\end{frame}
 
 
 \end{document}
