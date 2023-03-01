@@ -121,7 +121,20 @@ Almost no syntax; each whitespace-separated word performs an action on a stack o
 \includegraphics[width=0.9\linewidth]{PLOTS/forth-parsing-example.png}
 \end{frame}
 
-\begin{frame}{The language was implemented two years ago}
+\begin{frame}{Summary of the argument}
+\large
+\vspace{0.25 cm}
+\begin{enumerate}\setlength{\itemsep}{0.35 cm}
+\item<1-> Uproot and Awkward need a way to talk to each other (neither are human).
+\item<2-> Uproot expresses a procedure to turn bytes into Awkward Arrays.
+\item<3-> Awkward needs to execute this procedure quickly.
+\item<4-> We don't consider bundling a JIT-compiler into Awkward to be an option.
+\item<5-> Forth is an {\it interpreted} language on a virtual machine, like Python, but it's so stripped down that it doesn't have most of the things that make Python slow. AwkwardForth instruction $\sim$5~ns, Python instruction $\sim$900~ns.
+\item<6-> Bundling AwkwardForth in Awkward Array adds a few kilobytes without any dependencies. (Sssh! No one needs to know!)
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{The language was implemented 2 years ago}
 \vspace{0.17 cm}
 \begin{columns}
 \column{1.15\linewidth}
@@ -137,7 +150,7 @@ new paper here
 \end{columns}
 \end{frame}
 
-\begin{frame}{The language is fully documented}
+\begin{frame}{The language is fully documented (so it's a stable API)}
 \vspace{0.17 cm}
 \begin{columns}
 \column{1.15\linewidth}
@@ -145,7 +158,23 @@ new paper here
 \end{columns}
 \end{frame}
 
+\begin{frame}{Fixing Uproot's problem with non-columnar deserialization}
+\vspace{0.25 cm}
+\textcolor{darkorange}{\bf \centering This is the {\it predicted} performance (2 years ago).}
 
+\mbox{ } \hfill \includegraphics[width=0.9\linewidth]{PLOTS/AwkwardForth-performance-ROOT.pdf} \hfill \mbox{ }
+
+Float and vector-of-float are columnar (and the purple point is 5$\times$ too low, a {\it mistake}).
+
+Vector-of-vector-of-float and above are non-columnar.
+\end{frame}
+
+\begin{frame}{Fixing Uproot's problem with non-columnar deserialization}
+\vspace{0.25 cm}
+\textcolor{darkorange}{\bf \centering This is the {\it actual} performance (last summer).}
+
+\mbox{ } \hfill \includegraphics[width=0.9\linewidth]{PLOTS/awkwardforth-in-uproot-performance.pdf} \hfill \mbox{ }
+\end{frame}
 
 
 
