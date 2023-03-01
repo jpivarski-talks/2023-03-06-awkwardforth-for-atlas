@@ -32,7 +32,7 @@
 \definecolor{darkgreen}{rgb}{0,0.6,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\title[2023-03-06-awkwardforth-for-atlas]{Introduction to AwkwardForth}
+\title[2023-03-06-awkwardforth-for-atlas]{All about AwkwardForth}
 \author{Jim Pivarski}
 \institute{Princeton University -- IRIS-HEP}
 \date{March 6, 2023}
@@ -56,9 +56,40 @@
 
 % START START START START START START START START START START START START START
 
-\begin{frame}{First slide}
+\begin{frame}{Introduction: what is AwkwardForth?}
+\begin{center}
+\begin{minipage}{0.89\linewidth}
+\large\setlength{\baselineskip}{0.55 cm}
+
 \vspace{0.5 cm}
-HERE
+AwkwardForth is an internal DSL within Awkward Array for accelerating sequential (non-columnar) data-ingest processes that must be discovered at runtime, avoiding a JIT-compilation toolchain as a dependency because Awkward Array is a foundational library.
+
+\vspace{0.5 cm}
+\uncover<2->{It has a stable API because an external package, Uproot, uses it heavily.}
+
+\vspace{0.5 cm}
+\uncover<3->{Because of all the qualifications in its justification, I doubt other projects would ever need it.}
+\end{minipage}
+\end{center}
+\end{frame}
+
+\begin{frame}{Conclusions}
+\large
+\begin{itemize}
+\item You probably don't need it.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{\mbox{ }}
+\Huge
+\begin{center}
+\textcolor{darkblue}{\bf BACKUP}
+\end{center}
+\end{frame}
+
+\begin{frame}{asdf}
+
+
 \end{frame}
 
 \end{document}
