@@ -76,7 +76,7 @@ AwkwardForth is an internal DSL within Awkward Array for accelerating sequential
 \begin{frame}{Conclusions}
 \large
 \begin{itemize}
-\item You probably don't need it.
+\item<2-> You probably don't need it.
 \end{itemize}
 \end{frame}
 
@@ -94,7 +94,7 @@ AwkwardForth is an internal DSL within Awkward Array for accelerating sequential
 
 \begin{frame}{We need a deserialization language; why Forth?}
 \vspace{0.5 cm}
-Forth was promoted in the early 1980's as an alternative to complex languages. It was the only language capable of running fast (compile-like speeds) within memory constraints of the first Macintosh.
+Forth was promoted in the early 1980's as an alternative to compiled languages and (slow) BASIC. For example, it was the only language that could be written on the first Macintosh and produce applications that look and feel like compiled ones.
 
 \vspace{0.5 cm}
 \begin{columns}
@@ -135,18 +135,18 @@ Almost no syntax; each whitespace-separated word performs an action on a stack o
 \end{frame}
 
 \begin{frame}{The language was implemented 2 years ago}
-\vspace{0.17 cm}
+\vspace{0.16 cm}
 \begin{columns}
-\column{1.15\linewidth}
+\column{1.1475\linewidth}
 \includegraphics[width=\linewidth]{PLOTS/AwkwardForth-paper.png}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Uproot was updated to use it last summer (version 5.0)}
-\vspace{0.17 cm}
+\vspace{0.6 cm}
 \begin{columns}
-\column{1.15\linewidth}
-new paper here
+\column{1.1\linewidth}
+\includegraphics[width=\linewidth]{PLOTS/AwkwardForth-paper-2.png}
 \end{columns}
 \end{frame}
 
@@ -208,17 +208,20 @@ Some users have Numba (LLVM) installed.
 What if we convert AwkwardForth $\to$ Numba and let Numba compile it?
 
 \vspace{0.5 cm}
+\begin{uncoverenv}<2->
 Proof-of-concept implementation, given this test problem:
 
 \vspace{0.25 cm}
 Compute: $(x + 1) * (x - 2) + 3$
 
 for $N$ iterations (i.e.\ no data flow).
+\end{uncoverenv}
 
 \vspace{0.25 cm}
-\fbox{\mintinline{forth}{dup 1 + swap 2 - * 3 +}}
+\uncover<3->{\fbox{\mintinline{forth}{dup 1 + swap 2 - * 3 +}}}
 
 \vspace{0.25 cm}
+\begin{uncoverenv}<4->
 \scriptsize
 \begin{minted}{ca65}
 lea     eax, [rdi+1]
@@ -226,15 +229,18 @@ sub     edi, 2
 imul    eax, edi
 add     eax, 3
 \end{minted}
+\end{uncoverenv}
 
 \normalsize
 \vspace{0.5 cm}
+\begin{uncoverenv}<5->
 $\sim$400~ms to compile, then 10$\times$ faster,
 
 but only for arithmetically intensive code.
+\end{uncoverenv}
 
 \vspace{-5.5 cm}
-\hfill \includegraphics[width=0.6\linewidth]{PLOTS/new_compiler.pdf} \mbox{\hspace{-1 cm}}
+\uncover<6->{\hfill \includegraphics[width=0.6\linewidth]{PLOTS/new_compiler.pdf} \mbox{\hspace{-1 cm}}}
 
 \end{frame}
 
